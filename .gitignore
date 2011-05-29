@@ -1,0 +1,9 @@
+*.c
+*.elf
+*.h
+*.hex
+*.dblite
+build
+cabal-dev
+dist
+python
