@@ -1,0 +1,30 @@
+#+TITLE:Arduino with Haskell Atom
+[[http://leepike.wordpress.com/2010/05/31/twinkle-twinkle-little-haskell/][Original Blog Post]]
+
+* Setup
+  - [[http://hackage.haskell.org/platform/][Haskell Platform]] 2011.2.0.1 and [[http://www.haskell.org/ghc/][GHC]] 7.0.3
+    - If you are on a mac use homebrew
+  - [[http://www.python.org/][Python]] with [[http://pypi.python.org/pypi/virtualenv][VirtualEnv]]
+    - Used for the [[http://code.google.com/p/arscons/][arscons]] [[http://www.scons.org][scons]] script
+  - [[http://www.arduino.cc/en/Main/Software][Arduino Software]]
+    - Get it working with your Arduino
+      - [ ] Set the right model & port
+      - [ ] Upload an Example app and see it work
+* SCons
+  #+BEGIN_SRC:sh
+virtualenv --no-site-packages python
+source python/bin/activate
+easy_install pyserial scons
+  #+END_SRC
+* Haskell
+  #+BEGIN_SRC:sh
+cabal install cabal-dev
+cabal-dev install-deps
+cabal-dev configure
+cabal-dev install
+  #+END_SRC
+* Arduino
+  #+BEGIN_SRC:sh
+cabal-dev/bin/atom-led
+scons && scons upload
+  #+END_SRC

@@ -1,0 +1,9 @@
+name:                atom-led
+version:             0.1
+build-type:          Simple
+cabal-version:       >=1.2
+
+executable           atom-led
+  main-is:           AtomLED.hs
+  build-depends:     base >= 4.2
+                   , atom
