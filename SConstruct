@@ -13,7 +13,7 @@
 # You'll need the serial module: http://pypi.python.org/pypi/pyserial
 
 # Basic Usage:
-# 1. make a folder which have same name of the sketch (ex. Blink/ for Blik.pde)
+# 1. make a folder which have same name of the sketch (ex. Blink/ for Blik.c)
 # 2. put the sketch and SConstruct(this file) under the folder.
 # 3. to make the HEX. do following in the folder.
 #     $ scons
@@ -120,9 +120,9 @@ def getBoardConf(strPtn):
 MCU = getBoardConf(r'^%s\.build\.mcu=(.*)'%ARDUINO_BOARD)
 F_CPU = getBoardConf(r'^%s\.build\.f_cpu=(.*)'%ARDUINO_BOARD)
 
-# There should be a file with the same name as the folder and with the extension .pde
+# There should be a file with the same name as the folder and with the extension .c
 TARGET = os.path.basename(os.path.realpath(os.curdir))
-assert(os.path.exists(TARGET+'.pde'))
+assert(os.path.exists(TARGET+'.c'))
 
 cFlags = ['-ffunction-sections', '-fdata-sections', '-fno-exceptions',
     '-funsigned-char', '-funsigned-bitfields', '-fpack-struct', '-fshort-enums',
@@ -142,7 +142,7 @@ def fnProcessing(target, source, env):
     return None
 
 envArduino.Append(BUILDERS = {'Processing':Builder(action = fnProcessing,
-        suffix = '.cpp', src_suffix = '.pde')})
+        suffix = '.cpp', src_suffix = '.c')})
 envArduino.Append(BUILDERS={'Elf':Builder(action=AVR_BIN_PREFIX+'gcc '+
         '-mmcu=%s -Os -Wl,--gc-sections -o $TARGET $SOURCES -lm'%MCU)})
 envArduino.Append(BUILDERS={'Hex':Builder(action=AVR_BIN_PREFIX+'objcopy '+
@@ -160,7 +160,7 @@ core_sources = map(lambda x: x.replace(ARDUINO_CORE, 'build/core/'), core_source
 # add libraries
 libCandidates = []
 ptnLib = re.compile(r'^[ ]*#[ ]*include [<"](.*)\.h[>"]')
-for line in open (TARGET+'.pde'):
+for line in open (TARGET+'.c'):
     result = ptnLib.findall(line)
     if result:
         libCandidates += result
@@ -190,8 +190,8 @@ for orig_lib_dir in ARDUINO_LIBS:
         all_libs_sources += lib_sources
     index += 1
 
-# Convert sketch(.pde) to cpp
-envArduino.Processing('build/'+TARGET+'.cpp', 'build/'+TARGET+'.pde')
+# Convert sketch(.c) to cpp
+envArduino.Processing('build/'+TARGET+'.cpp', 'build/'+TARGET+'.c')
 VariantDir('build', '.')
 
 sources = ['build/'+TARGET+'.cpp']
