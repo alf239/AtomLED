@@ -20,7 +20,7 @@ blink = do
     call "avr_blink"
     on <== not_ (value on)
   where
-    ph = 40000
+    ph = 100000
 
 -- | Invoke the Atom compiler.
 main :: IO ()
