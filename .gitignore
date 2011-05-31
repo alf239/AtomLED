@@ -1,8 +1,9 @@
 *.c
+*.dblite
 *.elf
 *.h
 *.hex
-*.dblite
+*.pde
 build
 cabal-dev
 dist

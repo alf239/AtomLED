@@ -1,5 +1,5 @@
 name:                atom-led
-version:             0.2
+version:             0.3
 build-type:          Simple
 cabal-version:       >=1.2
 
@@ -7,3 +7,4 @@ executable           atom-led
   main-is:           AtomLED.hs
   build-depends:     base >= 4.2
                    , atom
+                   , directory
