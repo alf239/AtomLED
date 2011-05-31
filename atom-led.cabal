@@ -7,3 +7,4 @@ executable           atom-led
   main-is:           AtomLED.hs
   build-depends:     base >= 4.2
                    , atom
+                   , directory

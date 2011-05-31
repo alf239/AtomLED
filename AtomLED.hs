@@ -8,6 +8,7 @@ module Main where
 
 import Language.Atom
 import Data.Word
+import System.Directory
 
 -- | Simple Atom to toggle an LED, leaving it on 8 times as long as it's off.
 blink :: Atom ()
@@ -27,6 +28,7 @@ main :: IO ()
 main = do
   (sch, _, _, _, _) <- compile atomName defaults {cCode = prePostCode} blink
   putStrLn $ reportSchedule sch
+  renameFile (atomName ++ ".c") (atomName ++ ".pde")
   where
     atomName = "AtomLED"
     varInit t var val = cType t ++ " " ++ var ++ " = " ++ val ++ ";"
