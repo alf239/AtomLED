@@ -4,6 +4,7 @@
 *.h
 *.hex
 *.pde
+*.ino
 build
 cabal-dev
 dist
