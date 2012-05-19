@@ -100,8 +100,10 @@ if ARDUINO_VER == 0:
 else:
         print "Arduino version " + ARDUINO_VER + " specified"
 
-if ARDUINO_VER < 100: FILE_EXTENSION = ".pde"
-if ARDUINO_VER >= 100: FILE_EXTENSION = ".ino"
+# Even for 1.0+, the generated file will be .pde, hence commented-out check
+FILE_EXTENSION = ".pde" 
+# if ARDUINO_VER < 100: FILE_EXTENSION = ".pde"
+# if ARDUINO_VER >= 100: FILE_EXTENSION = ".ino"
 
 # Some OSs need bundle with IDE tool-chain
 if platform == 'darwin' or platform == 'win32': 
@@ -144,7 +146,7 @@ F_CPU = ARGUMENTS.get('F_CPU', F_CPU)
 
 # There should be a file with the same name as the folder and with the extension .pde
 TARGET = os.path.basename(os.path.realpath(os.curdir))
-assert(os.path.exists(TARGET+FILE_EXTENSION))
+assert(os.path.exists(TARGET + FILE_EXTENSION))
 
 cFlags = ['-ffunction-sections', '-fdata-sections', '-fno-exceptions',
     '-funsigned-char', '-funsigned-bitfields', '-fpack-struct', '-fshort-enums',
